@@ -44,6 +44,11 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_shopping_list"
+        android:name="com.flauschcode.broccoli.shopping.ShoppingListFragment"
+        android:label="@string/shopping_list" />
+
+    <fragment
         android:id="@+id/nav_support"
         android:name="com.flauschcode.broccoli.support.SupportFragment"
         android:label="@string/support_the_app" />

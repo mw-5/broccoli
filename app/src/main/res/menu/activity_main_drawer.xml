@@ -17,6 +17,9 @@
             android:icon="@drawable/ic_eco_24"
             android:title="@string/seasonal_calendar" />
 
+        <item android:id="@+id/nav_shopping_list"
+            android:title="@string/shopping_list" />
+
     </group>
 
     <group>
