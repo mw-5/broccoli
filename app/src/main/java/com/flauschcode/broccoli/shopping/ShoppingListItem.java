@@ -1,32 +1,54 @@
 package com.flauschcode.broccoli.shopping;
 
-import com.flauschcode.broccoli.recipe.Recipe;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
 import com.flauschcode.broccoli.recipe.ingredients.Ingredient;
 
-public class ShoppingListItem {
+import java.io.Serializable;
 
+@Entity(tableName = "shopping_list_items")
+public class ShoppingListItem implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    private long id;
+
+    @TypeConverters(IngredientConverter.class)
     private Ingredient ingredient;
     private boolean checked;
-    private Recipe recipe;
-    private String recipeId;
 
-    public ShoppingListItem(Ingredient ingredient, Recipe recipe, String recipeId, boolean checked) {
+    private String recipeTitle;
+    private String mealId;
+
+    public ShoppingListItem(Ingredient ingredient, String recipeTitle, String mealId, boolean checked) {
         this.ingredient = ingredient;
-        this.recipe = recipe;
-        this.recipeId = recipeId;
+        this.recipeTitle = recipeTitle;
+        this.mealId = mealId;
         this.checked = checked;
     }
 
-    public ShoppingListItem(Ingredient ingredient, Recipe recipe, String recipeId) {
+    @Ignore
+    public ShoppingListItem(Ingredient ingredient, String recipeTitle, String mealId) {
         this.ingredient = ingredient;
-        this.recipe = recipe;
-        this.recipeId = recipeId;
+        this.recipeTitle = recipeTitle;
+        this.mealId = mealId;
         this.checked = false;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Ingredient getIngredient() {
         return ingredient;
     }
+
     public void setIngredient(Ingredient ingredient) {
         this.ingredient = ingredient;
     }
@@ -39,19 +61,21 @@ public class ShoppingListItem {
         this.checked = checked;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
+    public String getRecipeTitle() {
+        return recipeTitle;
     }
 
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
+    public void setRecipeTitle(String recipeTitle) {
+        this.recipeTitle = recipeTitle;
     }
 
-    public String getRecipeId() {
-        return recipeId;
+    public String getMealId() {
+        return mealId;
     }
 
-    public void setRecipeId(String recipeId) {
-        this.recipeId = recipeId;
+    public void setMealId(String mealId) {
+        this.mealId = mealId;
     }
+
+
 }
