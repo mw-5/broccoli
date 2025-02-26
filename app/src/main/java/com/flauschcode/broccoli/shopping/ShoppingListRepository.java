@@ -8,10 +8,14 @@ import com.flauschcode.broccoli.recipe.ingredients.Ingredient;
 import com.flauschcode.broccoli.recipe.ingredients.IngredientBuilder;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+import javax.inject.Inject;
 
 public class ShoppingListRepository {
     private final ShoppingListItemDAO ShoppingListItemDAO;
 
+    @Inject
     public ShoppingListRepository(ShoppingListItemDAO ShoppingListItemDAO) {
         this.ShoppingListItemDAO = ShoppingListItemDAO;
     }
@@ -32,9 +36,11 @@ public class ShoppingListRepository {
         ShoppingListItemDAO.delete(shoppingListItem);
     }
 
-    public void add(Recipe recipe) {
-        for (Ingredient ingredient : IngredientBuilder.from(recipe.getIngredients())) {
-            add(new ShoppingListItem(ingredient, recipe.getTitle(), "TEST"));
-        }
+    public CompletableFuture<Void> add(Recipe recipe) {
+        return CompletableFuture.runAsync(() -> {
+            for (Ingredient ingredient : IngredientBuilder.from(recipe.getIngredients())) {
+                add(new ShoppingListItem(ingredient, recipe.getTitle(), "TEST"));
+            }
+        });
     }
 }
