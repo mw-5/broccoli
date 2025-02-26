@@ -48,6 +48,7 @@ import com.flauschcode.broccoli.recipe.directions.DirectionBuilder;
 import com.flauschcode.broccoli.recipe.sharing.ShareRecipeAsFileService;
 import com.flauschcode.broccoli.recipe.sharing.ShareableRecipe;
 import com.flauschcode.broccoli.recipe.sharing.ShareableRecipeBuilder;
+import com.flauschcode.broccoli.shopping.ShoppingListRepository;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.elevation.ElevationOverlayProvider;
@@ -66,6 +67,9 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
     @Inject
     RecipeRepository recipeRepository;
+
+    @Inject
+    ShoppingListRepository shoppingListRepository;
 
     @Inject
     ShareRecipeAsFileService shareRecipeAsFileService;
@@ -173,6 +177,11 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                 .setNegativeButton(android.R.string.cancel, (dialog, id) -> {})
                 .create();
         alertDialog.show();
+    }
+
+    public void addToShoppingList(MenuItem menuItem) {
+        shoppingListRepository.add(binding.getRecipe())
+                .thenRun(() -> runOnUiThread(() -> Toast.makeText(this, getString(R.string.recipe_added_to_shopping_list_message), Toast.LENGTH_SHORT).show()));
     }
 
     ActivityResultLauncher<Intent> cookingAssistantResultLauncher = registerForActivityResult(

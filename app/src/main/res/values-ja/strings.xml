@@ -956,4 +956,6 @@
     <!-- ONLY RELEVANT FOR THE JAPANESE SEASONAL CALENDAR Search terms used to identify seasonal ingredients in recipes (should include plural forms or synonyms), see https://en.wikipedia.org/wiki/Yuzu. -->
     <string name="yuzu_terms">ゆず,柚子,柚,ユズ</string>
     <string name="shopping_list">Shopping list</string>
+    <string name="recipe_added_to_shopping_list_message">Recipe added to shopping list.</string>
+    <string name="add_to_shopping_list_action">Shopping list</string>
 </resources>
