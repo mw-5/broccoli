@@ -1,5 +1,6 @@
 package com.flauschcode.broccoli.shopping;
 
+import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -7,32 +8,68 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.flauschcode.broccoli.R;
+import com.flauschcode.broccoli.databinding.FragmentShoppingListBinding;
+import com.flauschcode.broccoli.di.ViewModelFactory;
+
+import javax.inject.Inject;
+
+import dagger.android.support.AndroidSupportInjection;
 
 public class ShoppingListFragment extends Fragment {
 
-    private ShoppingListViewModel mViewModel;
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+    private ShoppingListViewModel viewModel;
+
+    private FragmentShoppingListBinding binding;
+
+    @Inject
+    public ShoppingListRepository shoppingListRepository;
 
     public static ShoppingListFragment newInstance() {
         return new ShoppingListFragment();
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_shopping_list, container, false);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        AndroidSupportInjection.inject(this);
+        super.onCreate(savedInstanceState);
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ShoppingListViewModel.class);
-        // TODO: Use the ViewModel
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        binding = FragmentShoppingListBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+
+        ShoppingListAdapter adapter = new ShoppingListAdapter(new ShoppingListAdapter.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(ShoppingListItem item, boolean isChecked) {
+                item.setChecked(isChecked);
+                viewModel.updateShoppingListItem(item);
+            }
+        });
+        binding.recyclerViewShoppingList.setAdapter(adapter);
+        binding.recyclerViewShoppingList.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        viewModel = new ViewModelProvider(this, viewModelFactory).get(ShoppingListViewModel.class);
+        viewModel.getShoppingListItems().observe(getViewLifecycleOwner(), adapter::submitList);
+
+        return view;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

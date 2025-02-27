@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.flauschcode.broccoli.shopping.ShoppingListItem" />
+        <variable
+            name="listener"
+            type="com.flauschcode.broccoli.shopping.ShoppingListAdapter.OnCheckedChangeListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <CheckBox
+            android:id="@+id/checkBoxItemChecked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:checked="@{item.checked}"
+            android:onCheckedChanged="@{(button, isChecked) -> listener.onCheckedChanged(item, isChecked)}" />
+
+        <TextView
+            android:id="@+id/textViewItemName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@{item.getIngredient().getText()}"
+            android:textSize="18sp"
+            tools:text="Ingredient Name" />
+
+        <TextView
+            android:id="@+id/textViewRecipeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{item.getRecipeTitle()}"
+            android:textSize="14sp"
+            tools:text="Recipe Name" />
+
+    </LinearLayout>
+</layout>

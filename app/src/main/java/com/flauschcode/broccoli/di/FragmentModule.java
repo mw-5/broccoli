@@ -8,6 +8,7 @@ import com.flauschcode.broccoli.recipe.cooking.ScalingDialog;
 import com.flauschcode.broccoli.recipe.list.RecipeFragment;
 import com.flauschcode.broccoli.seasons.MonthFragment;
 import com.flauschcode.broccoli.settings.SettingsFragment;
+import com.flauschcode.broccoli.shopping.ShoppingListFragment;
 import com.flauschcode.broccoli.support.SupportFragment;
 
 import dagger.Module;
@@ -42,4 +43,7 @@ public interface FragmentModule {
 
     @ContributesAndroidInjector
     ScalingDialog scalingDialog();
+
+    @ContributesAndroidInjector
+    ShoppingListFragment shoppingListFragment();
 }

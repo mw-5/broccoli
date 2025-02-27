@@ -7,6 +7,7 @@ import com.flauschcode.broccoli.category.CategoryViewModel;
 import com.flauschcode.broccoli.recipe.cooking.CookingAssistantViewModel;
 import com.flauschcode.broccoli.recipe.crud.CreateAndEditRecipeViewModel;
 import com.flauschcode.broccoli.recipe.list.RecipeViewModel;
+import com.flauschcode.broccoli.shopping.ShoppingListViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -37,5 +38,10 @@ public interface ViewModelModule {
     @IntoMap
     @ViewModelKey(CookingAssistantViewModel.class)
     ViewModel newCookingAssistantViewModel(CookingAssistantViewModel cookingAssistantViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ShoppingListViewModel.class)
+    ViewModel shoppingListViewModel(ShoppingListViewModel shoppingListViewModel);
 
 }
