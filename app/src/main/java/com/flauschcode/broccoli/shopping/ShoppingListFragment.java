@@ -1,6 +1,5 @@
 package com.flauschcode.broccoli.shopping;
 
-import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -9,16 +8,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.flauschcode.broccoli.R;
 import com.flauschcode.broccoli.databinding.FragmentShoppingListBinding;
-import com.flauschcode.broccoli.di.ViewModelFactory;
 
 import javax.inject.Inject;
 
@@ -31,9 +26,6 @@ public class ShoppingListFragment extends Fragment {
     private ShoppingListViewModel viewModel;
 
     private FragmentShoppingListBinding binding;
-
-    @Inject
-    public ShoppingListRepository shoppingListRepository;
 
     public static ShoppingListFragment newInstance() {
         return new ShoppingListFragment();
@@ -51,13 +43,7 @@ public class ShoppingListFragment extends Fragment {
         binding = FragmentShoppingListBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        ShoppingListAdapter adapter = new ShoppingListAdapter(new ShoppingListAdapter.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(ShoppingListItem item, boolean isChecked) {
-                item.setChecked(isChecked);
-                viewModel.updateShoppingListItem(item);
-            }
-        });
+        ShoppingListAdapter adapter = setUpAdapter();
         binding.recyclerViewShoppingList.setAdapter(adapter);
         binding.recyclerViewShoppingList.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -65,6 +51,13 @@ public class ShoppingListFragment extends Fragment {
         viewModel.getShoppingListItems().observe(getViewLifecycleOwner(), adapter::submitList);
 
         return view;
+    }
+
+    private ShoppingListAdapter setUpAdapter() {
+        return new ShoppingListAdapter((item, isChecked) -> {
+            item.setChecked(isChecked);
+            viewModel.updateShoppingListItem(item);
+        });
     }
 
     @Override
