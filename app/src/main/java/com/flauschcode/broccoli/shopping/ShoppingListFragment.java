@@ -26,6 +26,7 @@ public class ShoppingListFragment extends Fragment {
     private ShoppingListViewModel viewModel;
 
     private FragmentShoppingListBinding binding;
+    private ShoppingListAdapter adapter;
 
     public static ShoppingListFragment newInstance() {
         return new ShoppingListFragment();
@@ -54,10 +55,12 @@ public class ShoppingListFragment extends Fragment {
     }
 
     private ShoppingListAdapter setUpAdapter() {
-        return new ShoppingListAdapter((item, isChecked) -> {
+        adapter = new ShoppingListAdapter((item, isChecked) -> {
             item.setChecked(isChecked);
             viewModel.updateShoppingListItem(item);
+            adapter.submitList(viewModel.getShoppingListItems().getValue());
         });
+        return adapter;
     }
 
     @Override

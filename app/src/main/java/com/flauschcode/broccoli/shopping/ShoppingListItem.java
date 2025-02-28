@@ -79,7 +79,8 @@ public class ShoppingListItem implements Serializable {
 
     public boolean equals(Object o) {
         return o.getClass() == ShoppingListItem.class
-                && ((ShoppingListItem) o).id == this.id;
+                && ((ShoppingListItem) o).id == this.id
+                && ((ShoppingListItem)o).isChecked() == this.isChecked();
     }
 
 }
