@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.flauschcode.broccoli.databinding.ShoppingListItemBinding;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class ShoppingListAdapter extends ListAdapter<ShoppingListItem, ShoppingListAdapter.ShoppingListViewHolder> {
@@ -53,17 +51,14 @@ public class ShoppingListAdapter extends ListAdapter<ShoppingListItem, ShoppingL
 
     private List<ShoppingListItem> sortList(List<ShoppingListItem> list) {
         List<ShoppingListItem> newList = new java.util.ArrayList<>(list);
-        Collections.sort(newList, new Comparator<ShoppingListItem>() {
-            @Override
-            public int compare(ShoppingListItem item1, ShoppingListItem item2) {
-                // Unchecked items come before checked items
-                if (item1.isChecked() && !item2.isChecked()) {
-                    return 1;
-                } else if (!item1.isChecked() && item2.isChecked()) {
-                    return -1;
-                } else {
-                    return 0;
-                }
+        newList.sort((item1, item2) -> {
+            // Unchecked items come before checked items
+            if (item1.isChecked() && !item2.isChecked()) {
+                return 1;
+            } else if (!item1.isChecked() && item2.isChecked()) {
+                return -1;
+            } else {
+                return 0;
             }
         });
         return newList;

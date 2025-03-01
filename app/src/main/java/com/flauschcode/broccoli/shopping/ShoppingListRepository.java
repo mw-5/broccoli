@@ -16,7 +16,7 @@ import javax.inject.Inject;
 
 public class ShoppingListRepository {
     private final ShoppingListItemDAO ShoppingListItemDAO;
-    private Executor executor = Executors.newSingleThreadExecutor();
+    private final Executor executor = Executors.newSingleThreadExecutor();
 
     @Inject
     public ShoppingListRepository(ShoppingListItemDAO ShoppingListItemDAO) {
@@ -28,21 +28,15 @@ public class ShoppingListRepository {
     }
 
     public void add(ShoppingListItem shoppingListItem) {
-        executor.execute(() -> {
-            ShoppingListItemDAO.insert(shoppingListItem);
-        });
+        executor.execute(() -> ShoppingListItemDAO.insert(shoppingListItem));
     }
 
     public void update(ShoppingListItem shoppingListItem) {
-        executor.execute(() -> {
-            ShoppingListItemDAO.update(shoppingListItem);
-        });
+        executor.execute(() -> ShoppingListItemDAO.update(shoppingListItem));
     }
 
     public void delete(ShoppingListItem shoppingListItem) {
-        executor.execute(() -> {
-            ShoppingListItemDAO.delete(shoppingListItem);
-        });
+        executor.execute(() -> ShoppingListItemDAO.delete(shoppingListItem));
     }
 
     public CompletableFuture<Void> add(Recipe recipe) {
