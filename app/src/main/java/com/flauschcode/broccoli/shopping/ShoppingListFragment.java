@@ -56,9 +56,7 @@ public class ShoppingListFragment extends Fragment {
 
     private ShoppingListAdapter setUpAdapter() {
         adapter = new ShoppingListAdapter((item, isChecked) -> {
-            item.setChecked(isChecked);
-            viewModel.updateShoppingListItem(item);
-            adapter.submitList(viewModel.getShoppingListItems().getValue());
+            viewModel.updateShoppingListItem(item, isChecked);
         });
         return adapter;
     }

@@ -4,8 +4,6 @@ package com.flauschcode.broccoli.shopping;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.flauschcode.broccoli.recipe.Recipe;
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,7 +20,8 @@ public class ShoppingListViewModel extends ViewModel {
         shoppingListItems = shoppingListRepository.getShoppingListItems();
     }
 
-    public void updateShoppingListItem(ShoppingListItem item) {
+    public void updateShoppingListItem(ShoppingListItem item, boolean isChecked) {
+        item.setChecked(isChecked);
         shoppingListRepository.update(item);
     }
 

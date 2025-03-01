@@ -1,6 +1,5 @@
 package com.flauschcode.broccoli.shopping;
 
-import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -82,13 +81,6 @@ public class ShoppingListAdapter extends ListAdapter<ShoppingListItem, ShoppingL
             binding.setItem(item);
             binding.setListener(onCheckedChangeListener);
             binding.executePendingBindings();
-
-            // Apply strike-through if checked
-            if (item.isChecked()) {
-                binding.textViewItemName.setPaintFlags(binding.textViewItemName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            } else {
-                binding.textViewItemName.setPaintFlags(binding.textViewItemName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-            }
         }
     }
 
