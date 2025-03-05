@@ -1,5 +1,6 @@
 package com.flauschcode.broccoli.shopping;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -8,11 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.appcompat.widget.Toolbar;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.flauschcode.broccoli.R;
 import com.flauschcode.broccoli.databinding.FragmentShoppingListBinding;
 
 import javax.inject.Inject;
@@ -35,6 +41,7 @@ public class ShoppingListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         AndroidSupportInjection.inject(this);
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -42,6 +49,9 @@ public class ShoppingListFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentShoppingListBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+        Toolbar toolbar = binding.toolbarShoppingList;
+        //((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
 
         ShoppingListAdapter adapter = setUpAdapter();
         binding.recyclerViewShoppingList.setAdapter(adapter);
@@ -55,6 +65,21 @@ public class ShoppingListFragment extends Fragment {
 
     private ShoppingListAdapter setUpAdapter() {
         return new ShoppingListAdapter((item, isChecked) -> viewModel.updateShoppingListItem(item, isChecked));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @Nullable@NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_shopping_list, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_shopping_list_clear) {
+            viewModel.clearShoppingList();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
