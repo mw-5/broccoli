@@ -23,4 +23,8 @@ public interface ShoppingListItemDAO {
 
     @Query("SELECT * FROM shopping_list_items")
     LiveData<List<ShoppingListItem>> findAll();
+
+    @Query("DELETE FROM shopping_list_items")
+    void deleteAll();
+
 }

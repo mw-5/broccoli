@@ -36,4 +36,9 @@ public class ShoppingListViewModel extends ViewModel {
     public void delete(ShoppingListItem shoppingListItem) {
         shoppingListRepository.delete(shoppingListItem);
     }
+
+    public void clearShoppingList() {
+        shoppingListRepository.clearShoppingList();
+    }
+
 }

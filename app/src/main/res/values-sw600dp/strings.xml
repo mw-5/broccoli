@@ -3,4 +3,5 @@
     <string name="shopping_list">Shopping list</string>
     <string name="recipe_added_to_shopping_list_message">Recipe added to shopping list.</string>
     <string name="add_to_shopping_list_action">Shopping list</string>
+    <string name="clear_shopping_list_action">Clear shopping list</string>
 </resources>

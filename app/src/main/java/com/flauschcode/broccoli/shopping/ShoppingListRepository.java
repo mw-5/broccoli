@@ -39,6 +39,10 @@ public class ShoppingListRepository {
         executor.execute(() -> ShoppingListItemDAO.delete(shoppingListItem));
     }
 
+    public void clearShoppingList() {
+        executor.execute(() -> ShoppingListItemDAO.deleteAll());
+    }
+
     public CompletableFuture<Void> add(Recipe recipe) {
         return CompletableFuture.runAsync(() -> {
             for (Ingredient ingredient : IngredientBuilder.from(recipe.getIngredients())) {
