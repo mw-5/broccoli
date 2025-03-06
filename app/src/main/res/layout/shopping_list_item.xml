@@ -34,6 +34,7 @@
             android:layout_weight="1"
             android:text="@{item.getIngredient().getText()}"
             android:textSize="18sp"
+            app:strikethrough="@{item.checked}"
             tools:text="Ingredient Name" />
 
         <TextView
