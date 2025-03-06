@@ -1,5 +1,6 @@
 package com.flauschcode.broccoli.shopping;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -50,6 +51,7 @@ public class ShoppingListFragment extends Fragment {
         View view = binding.getRoot();
 
         Toolbar toolbar = binding.toolbarShoppingList;
+        //((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
 
         ShoppingListAdapter adapter = setUpAdapter();
         binding.recyclerViewShoppingList.setAdapter(adapter);
