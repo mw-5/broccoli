@@ -15,23 +15,25 @@ public class ShoppingListItem implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private long id;
 
-    @TypeConverters(IngredientConverter.class)
-    private Ingredient ingredient;
     private boolean checked;
 
+    private String ingredientName;
+    private String quantity;
     private String recipeTitle;
     private String mealId;
 
-    public ShoppingListItem(Ingredient ingredient, String recipeTitle, String mealId, boolean checked) {
-        this.ingredient = ingredient;
+    public ShoppingListItem(String ingredientName, String quantity, String recipeTitle, String mealId, boolean checked) {
+        this.ingredientName = ingredientName;
+        this.quantity = quantity;
         this.recipeTitle = recipeTitle;
         this.mealId = mealId;
         this.checked = checked;
     }
 
     @Ignore
-    public ShoppingListItem(Ingredient ingredient, String recipeTitle, String mealId) {
-        this.ingredient = ingredient;
+    public ShoppingListItem(String ingredientName, String quantity, String recipeTitle, String mealId) {
+        this.ingredientName = ingredientName;
+        this.quantity = quantity;
         this.recipeTitle = recipeTitle;
         this.mealId = mealId;
         this.checked = false;
@@ -43,14 +45,6 @@ public class ShoppingListItem implements Serializable {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Ingredient getIngredient() {
-        return ingredient;
-    }
-
-    public void setIngredient(Ingredient ingredient) {
-        this.ingredient = ingredient;
     }
 
     public boolean isChecked() {
@@ -75,6 +69,26 @@ public class ShoppingListItem implements Serializable {
 
     public void setMealId(String mealId) {
         this.mealId = mealId;
+    }
+
+    public String getText() {
+        return quantity + ingredientName;
+    }
+
+    public String getIngredientName() {
+        return ingredientName;
+    }
+
+    public void setIngredientName(String ingredientName) {
+        this.ingredientName = ingredientName;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 
     public boolean equals(Object o) {
